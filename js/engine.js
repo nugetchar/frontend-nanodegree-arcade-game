@@ -23,6 +23,7 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        acceptGeneration = true, //I added this in order to manage the enemies poping system
         lastTime;
 
     canvas.width = 505;
@@ -42,6 +43,9 @@ var Engine = (function(global) {
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
+        
+        generateEnemy();
+        
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
@@ -69,6 +73,17 @@ var Engine = (function(global) {
         main();
     }
 
+    /* Global function wich generates a random number of enemies and push them into an array */
+    function generateEnemy(){  
+        if(acceptGeneration){
+            acceptGeneration = false;
+            setTimeout(function(){
+                allEnemies.push(new Enemy(0, (Math.random() * 6) + 50));
+                acceptGeneration = true;
+            }, (Math.random() * 4000) + 2000 );
+        }
+    }
+
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
@@ -80,6 +95,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+        removeOutEnemies();
         // checkCollisions();
     }
 
@@ -96,6 +112,21 @@ var Engine = (function(global) {
         });
         player.update();
     }
+
+    /* This is called by the update function  and loops through all of the
+     * objects within your allEnemies array as defined in app.js and looks
+     * for the ones which are out of the map then remove them.
+     */
+
+     function removeOutEnemies(){
+        for(var i=0; i<allEnemies.length; ++i){
+            if(allEnemies[i].out){
+                delete allEnemies[i];
+                allEnemies.splice(i, 1);
+            }
+        }
+     }
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every

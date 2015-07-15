@@ -49,6 +49,8 @@ var Enemy = function(x, y) {
     // location
     this.x = x;
     this.y = y;
+
+    this.out = false;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -64,15 +66,13 @@ Enemy.prototype.render = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     setTimeout(Enemy.prototype.move(this), dt);
+    this.out = (this.x === 505);
 };
 
 Enemy.prototype.move = function(obj){
     obj.x++;
 }
 
-Enemy.prototype.die = function(){
-    delete this;
-}
 
 
 
@@ -115,25 +115,47 @@ Player.prototype.render = function() {
 Player.prototype.update = function() {
     this.x = this.x + this.dx;
     this.y = this.y + this.dy;
+    this.stop();
 };
 
 // Handle directions orders
 Player.prototype.handleInput = function(direction){
+
     switch(direction) {
         case 'left':
-            this.dx = -5;
+            if(this.x === 1 ){
+                this.dx = 0
+            } else {
+                this.dx = -100;
+            }
+
             this.dy = 0;
             break;
         case 'right':
-            this.dx = 5;
+            if(this.x === 401 ){
+                this.dx = 0
+            } else {
+                this.dx = 100;
+            }
             this.dy = 0;
             break;
         case 'up':
-            this.dy = -6;
+            // We won
+            if(this.y === 42 ){
+                this.y = 382;
+                this.dy = 0
+                alert('Congratulations !');
+            } else {
+                this.dy = -85;
+            }
             this.dx = 0;
             break;
         case 'down':
-            this.dy = 6;
+            if(this.y === 382 ){
+                this.dy = 0
+            } else {
+                this.dy = 85;
+            }
             this.dx = 0;
             break;
         default:
@@ -150,21 +172,14 @@ Player.prototype.stop = function(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy(3,6), new Enemy(5,4)];
-var player = new Player(0,0);
+var allEnemies = [];
+var player = new Player(201,382);
 
-
-// Global function wich generates a random number of enemies and push them into an array
-function generateEnemies(allEnemies){
-    var nb = Math.floor((Math.random() * 10) + 1);
-    for(var i=0; i<nb; i++){
-
-    }
-}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keyup', function(e) {
+
     var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -174,7 +189,13 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-document.addEventListener('keyup', function(e) {
+
+
+// NOTE FOR FURTHER DEV : 
+// REPLACE keyup BY keydown FOR THE PREVIOUS EVENT
+// AND COMMENT THE LINE this.stop() IN THE UPDATE FUNCTION
+// TO HAVE A SMOOTH MOVEMENT
+/*document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -183,3 +204,6 @@ document.addEventListener('keyup', function(e) {
     };
     player.stop();
 });
+*/
+
+
