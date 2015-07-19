@@ -44,13 +44,13 @@ var Engine = (function(global) {
             dt = (now - lastTime) / 1000.0;
 
         
-        generateEnemy();
+        generateEnemy(gameVars);
         
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
-        render();
+        update(gameVars, dt);
+        render(gameVars);
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -73,14 +73,18 @@ var Engine = (function(global) {
         main();
     }
 
-    /* Global function wich generates a random number of enemies and push them into an array */
-    function generateEnemy(){  
+    /* Global function wich generates an enemy and pushes him into an array */
+    function generateEnemy(game){  
+        
         if(acceptGeneration){
             acceptGeneration = false;
             setTimeout(function(){
-                allEnemies.push(new Enemy(0, (Math.random() * 6) + 50));
+                var i;
+                while((i = Math.floor((Math.random() * 3) + 0)) === game.lastYIndex);
+                game.lastYIndex = i;
+                game.allEnemies.push(new Enemy(0, game.ys_[i]));
                 acceptGeneration = true;
-            }, (Math.random() * 4000) + 2000 );
+            }, (Math.random() * 1200) + 500 );
         }
     }
 
@@ -93,10 +97,10 @@ var Engine = (function(global) {
      * functionality this way (you could just implement collision detection
      * on the entities themselves within your app.js file).
      */
-    function update(dt) {
-        updateEntities(dt);
-        removeOutEnemies();
-        // checkCollisions();
+    function update(game, dt) {
+        updateEntities(game, dt);
+        removeOutEnemies(game);
+        checkCollisions(game);
     }
 
     /* This is called by the update function  and loops through all of the
@@ -106,11 +110,11 @@ var Engine = (function(global) {
      * the data/properties related to  the object. Do your drawing in your
      * render methods.
      */
-    function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
+    function updateEntities(game, dt) {
+        game.allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        game.player.update();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -118,13 +122,27 @@ var Engine = (function(global) {
      * for the ones which are out of the map then remove them.
      */
 
-     function removeOutEnemies(){
-        for(var i=0; i<allEnemies.length; ++i){
-            if(allEnemies[i].out){
-                delete allEnemies[i];
-                allEnemies.splice(i, 1);
+     function removeOutEnemies(game){
+        for(var i=0; i<game.allEnemies.length; ++i){
+            if(game.allEnemies[i].out){
+                delete game.allEnemies[i];
+                game.allEnemies.splice(i, 1);
             }
         }
+     }
+
+     function samePlace(player, enemy){
+
+        return ((enemy.x >= player.area.minx && enemy.x <= player.area.maxx) 
+            && (enemy.y >= player.area.miny && enemy.y <= player.area.maxy));
+     }
+
+     function checkCollisions(game){
+        game.allEnemies.forEach(function(enemy){
+            if(samePlace(game.player, enemy)){
+                game.player.dies();
+            }
+        });
      }
 
 
@@ -134,7 +152,7 @@ var Engine = (function(global) {
      * they are flipbooks creating the illusion of animation but in reality
      * they are just drawing the entire screen over and over.
      */
-    function render() {
+    function render(game) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -168,22 +186,22 @@ var Engine = (function(global) {
         }
 
 
-        renderEntities();
+        renderEntities(game);
     }
 
     /* This function is called by the render function and is called on each game
      * tick. It's purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
      */
-    function renderEntities() {
+    function renderEntities(game) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
+        game.allEnemies.forEach(function(enemy) {
             enemy.render();
         });
 
-        player.render();
+        game.player.render();
     }
 
     /* This function does nothing but it could have been a good place to
