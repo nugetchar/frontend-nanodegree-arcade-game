@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js/app.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Character.html">Character</a></li>
+                                <li><a href="../classes/Enemy.html">Enemy</a></li>
+                                <li><a href="../classes/Player.html">Player</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: js/app.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&quot;use strict&quot;;
+/* ==========================
+ * CHARACTER CLASS          /
+ * ==========================
+ */
+
+/**
+* @class Character
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the picture of the character
+*/
+var Character = function(x, y, sprite){
+
+    //If x is not defined, it is set to 0
+    if(typeof x === &#x27;undefined&#x27;){
+        x = 0;
+    }
+
+    //If y is not defined, it is set to 0
+    if(typeof y === &#x27;undefined&#x27;){
+        y = 0;
+    }
+
+    /**
+    * The x location
+    * @property x
+    * @type Integer
+    * @default 0
+    */
+    this.x = x;
+
+    /**
+    * The y location
+    * @property y
+    * @type Integer
+    * @default 0
+    */
+    this.y = y;
+
+
+    //TODO : DEFAULT VALUE
+    this.sprite = sprite;
+};
+
+/**
+* @method getX
+* @brief get the Character&#x27;s x location
+* @return {Integer} x, the Character&#x27;s x location
+*/
+Character.prototype.getX = function(){
+    return this.x;
+};
+
+
+/**
+* @method getY
+* @brief get the Character&#x27;s y location
+* @return {Integer} y, the Character&#x27;s y location
+*/
+Character.prototype.getY = function(){
+    return this.y;
+};
+
+/**
+* @method setX
+* @brief set the Character&#x27;s x location
+* @param {Integer} x, the new Character&#x27;s x location
+*/
+Character.prototype.setX = function(x){
+    this.x = x;
+};
+
+/**
+* @method setY
+* @brief set the Character&#x27;s y location
+* @param {Integer} y, the new Character&#x27;s y location
+*/
+Character.prototype.setY = function(y){
+    this.y = y;
+};
+
+/**
+* @method render
+* @brief render the Character
+*/
+Character.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+/* ==========================
+* ENEMY CLASS              /
+* ==========================
+*/
+
+/**
+* @class Enemy
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the Character&#x27;s sprite
+*/
+var Enemy = function(x, y, sprite) {
+
+    // Inheritance from Character
+    Character.call(this, x, y, sprite);
+
+    /**
+    * A boolean to know if an enemy is out of the map
+    * @property out
+    * @type Boolean
+    * @default false
+    */
+    this.out = false; //is the enemy out of the map ?
+    
+
+    /**
+    * The enemy&#x27;s speed
+    * @property speed
+    * @type Float
+    * @default between 1 and 2
+    */
+    this.speed = (Math.random() * 2) + 1;
+};
+
+//Prototype chain
+Enemy.prototype = Object.create(Character.prototype);
+Enemy.prototype.constructor = Enemy;
+
+
+/**
+* @method update
+* @brief update the enemy&#x27;s position, required method for game
+* @param {Float} dt, a time delta between ticks
+*/
+Enemy.prototype.update = function(dt) {
+    setTimeout(this.move(), dt);
+};
+
+/**
+* @method move
+* @brief move the enemy, called by the update() method
+*/
+Enemy.prototype.move = function(){
+    this.setX(this.getX() + this.speed);
+    this.out = (this.getX() === gameVars.LIMITS.outx);
+};
+
+
+
+/* ==========================
+* PLAYER CLASS             /
+* ==========================
+*/
+/**
+* @class Player
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the Character&#x27;s sprite
+*/
+var Player = function(x, y, sprite) {
+
+    // Inheritance from Character
+    Character.call(this, x, y, sprite);
+
+    /**
+    * The player&#x27;s x-movement
+    * @property dx
+    * @type Integer
+    * @default 0
+    */
+    this.dx = 0;
+
+    /**
+    * The player&#x27;s y-movement
+    * @property dy
+    * @type Integer
+    * @default 0
+    */
+    this.dy = 0;
+
+    /**
+    * The player&#x27;s area for collision detection
+    * @property area
+    * @type {Object}
+    * @default {Object}
+    */
+    this.area = {
+        &#x27;minx&#x27; : this.getX() - 50,
+        &#x27;maxx&#x27; : this.getX() + 50,
+        &#x27;miny&#x27; : this.getY() - 44.5,
+        &#x27;maxy&#x27; : this.getY() + 44.5
+    };
+
+};
+
+// Inheritance of prototype
+Player.prototype = Object.create(Character.prototype);
+Player.prototype.constructor = Player;
+
+/**
+* @method update
+* @brief update the Player&#x27;s position
+*/
+Player.prototype.update = function() {
+    //update the x and y locations
+    this.setX(this.getX() + this.dx);
+    this.setY(this.getY() + this.dy);
+
+    //update the player&#x27;s area
+    this.area.minx = this.getX() - 50;
+    this.area.maxx = this.getX() + 50;
+    this.area.miny = this.getY() - 44.5;
+    this.area.maxy = this.getY() + 44.5;
+
+    //stop the player
+    this.stops();
+};
+
+/**
+* @method handleInput
+* @brief handle directions orders
+* @param {String} direction
+*/
+Player.prototype.handleInput = function(direction){
+
+    switch(direction) {
+        //if left
+        case &#x27;left&#x27;:
+            //if we&#x27;re at the edge of the map, we don&#x27;t move
+            if(this.x === gameVars.LIMITS.minx ){
+                this.dx = 0;
+            } else {
+                //else we update the Player&#x27;s movement
+                this.dx = gameVars.STEPS.left;
+            }
+
+            this.dy = 0;
+            break;
+
+        //if right
+        case &#x27;right&#x27;:
+            if(this.x === gameVars.LIMITS.maxx ){
+                this.dx = 0;
+            } else {
+                this.dx = gameVars.STEPS.right;
+            }
+            this.dy = 0;
+            break;
+
+        //if up
+        case &#x27;up&#x27;:
+            // We won
+            if(this.y === gameVars.LIMITS.miny ){
+                this.y = 382;
+                this.dy = 0;
+                alert(&#x27;Congratulations !&#x27;);
+            } else {
+                this.dy = gameVars.STEPS.up;
+            }
+            this.dx = 0;
+            break;
+
+        //if down
+        case &#x27;down&#x27;:
+            if(this.y === gameVars.LIMITS.maxy ){
+                this.dy = 0;
+            } else {
+                this.dy = gameVars.STEPS.down;
+            }
+            this.dx = 0;
+            break;
+        default:
+    }
+};
+
+/**
+* @method stops
+* @brief stoping the player
+*/
+Player.prototype.stops = function(){
+    this.dx = 0;
+    this.dy = 0;
+};
+
+/**
+* @method stops
+* @brief the player dies
+*/
+Player.prototype.dies = function(){
+    //We stop the player
+    this.stops();
+
+    //Then we replace him at start
+    this.setX(gameVars.initialPosition.x);
+    this.setY(gameVars.initialPosition.y);
+};
+
+
+
+// This listens for key presses and sends the keys to your
+// Player.handleInput() method. You don&#x27;t need to modify this.
+document.addEventListener(&#x27;keyup&#x27;, function(e) {
+    var allowedKeys = {
+        37: &#x27;left&#x27;,
+        38: &#x27;up&#x27;,
+        39: &#x27;right&#x27;,
+        40: &#x27;down&#x27;
+    };
+    gameVars.player.handleInput(allowedKeys[e.keyCode]);
+});
+
+
+/* ==========================================
+* An object containing some global variables/
+* ==========================================
+*/
+var gameVars = {
+    //all the enemies
+    &#x27;allEnemies&#x27; : [],
+
+    //the player&#x27;s initial position
+    &#x27;initialPosition&#x27; : {
+        &#x27;x&#x27; : 201,
+        &#x27;y&#x27; : 382   
+    },
+
+    //the player unique instance
+    &#x27;player&#x27; : null,
+
+    //the map&#x27;s limits
+    &#x27;LIMITS&#x27; : {
+        &#x27;minx&#x27; : 1,
+        &#x27;miny&#x27; : 42,
+        &#x27;maxx&#x27; : 401,
+        &#x27;maxy&#x27; : 382,
+        &#x27;outx&#x27; : 505
+    },
+
+    //the steps the player can do
+    &#x27;STEPS&#x27; : {
+        &#x27;left&#x27; : -100,
+        &#x27;right&#x27; : 100,
+        &#x27;up&#x27; : -85,
+        &#x27;down&#x27; : 85
+    },
+
+    //the various Y coordinates an enemy can pop
+    &#x27;YS_&#x27; : [127, 212, 297, 382],
+
+    //the last Y coordinate an enemy has pop
+    &#x27;lastYIndex&#x27; : null
+};
+
+gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, &#x27;images/char-boy.png&#x27;);
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

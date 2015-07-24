@@ -61,7 +61,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    };
+    }
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -82,7 +82,7 @@ var Engine = (function(global) {
                 var i;
                 while((i = Math.floor((Math.random() * 3) + 0)) === game.lastYIndex);
                 game.lastYIndex = i;
-                game.allEnemies.push(new Enemy(0, game.ys_[i]));
+                game.allEnemies.push(new Enemy(0, game.YS_[i], 'images/enemy-bug.png'));
                 acceptGeneration = true;
             }, (Math.random() * 1200) + 500 );
         }
@@ -133,8 +133,7 @@ var Engine = (function(global) {
 
      function samePlace(player, enemy){
 
-        return ((enemy.x >= player.area.minx && enemy.x <= player.area.maxx) 
-            && (enemy.y >= player.area.miny && enemy.y <= player.area.maxy));
+        return ((enemy.x >= player.area.minx && enemy.x <= player.area.maxx) && (enemy.y >= player.area.miny && enemy.y <= player.area.maxy));
      }
 
      function checkCollisions(game){

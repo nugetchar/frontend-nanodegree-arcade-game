@@ -1,0 +1,348 @@
+{
+    "project": {},
+    "files": {
+        "js/app.js": {
+            "name": "js/app.js",
+            "modules": {},
+            "classes": {
+                "Character": 1,
+                "Enemy": 1,
+                "Player": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Character": {
+            "name": "Character",
+            "shortname": "Character",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/app.js",
+            "line": 7,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": ": the x location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": ": the y location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "sprite",
+                    "description": ": the picture of the character",
+                    "type": "String"
+                }
+            ]
+        },
+        "Enemy": {
+            "name": "Enemy",
+            "shortname": "Enemy",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/app.js",
+            "line": 97,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": ": the x location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": ": the y location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "sprite",
+                    "description": ": the Character's sprite",
+                    "type": "String"
+                }
+            ]
+        },
+        "Player": {
+            "name": "Player",
+            "shortname": "Player",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/app.js",
+            "line": 156,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": ": the x location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": ": the y location of the character",
+                    "type": "Integer"
+                },
+                {
+                    "name": "sprite",
+                    "description": ": the Character's sprite",
+                    "type": "String"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "js/app.js",
+            "line": 26,
+            "description": "The x location",
+            "itemtype": "property",
+            "name": "x",
+            "type": "Integer",
+            "default": "0",
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 34,
+            "description": "The y location",
+            "itemtype": "property",
+            "name": "y",
+            "type": "Integer",
+            "default": "0",
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 47,
+            "itemtype": "method",
+            "name": "getX",
+            "brief": "get the Character's x location",
+            "return": {
+                "description": "x, the Character's x location",
+                "type": "Integer"
+            },
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "getY",
+            "brief": "get the Character's y location",
+            "return": {
+                "description": "y, the Character's y location",
+                "type": "Integer"
+            },
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 66,
+            "itemtype": "method",
+            "name": "setX",
+            "brief": "set the Character's x location",
+            "params": [
+                {
+                    "name": "x,",
+                    "description": "the new Character's x location",
+                    "type": "Integer"
+                }
+            ],
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 75,
+            "itemtype": "method",
+            "name": "setY",
+            "brief": "set the Character's y location",
+            "params": [
+                {
+                    "name": "y,",
+                    "description": "the new Character's y location",
+                    "type": "Integer"
+                }
+            ],
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 84,
+            "itemtype": "method",
+            "name": "render",
+            "brief": "render the Character",
+            "class": "Character"
+        },
+        {
+            "file": "js/app.js",
+            "line": 109,
+            "description": "A boolean to know if an enemy is out of the map",
+            "itemtype": "property",
+            "name": "out",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Enemy"
+        },
+        {
+            "file": "js/app.js",
+            "line": 118,
+            "description": "The enemy's speed",
+            "itemtype": "property",
+            "name": "speed",
+            "type": "Float",
+            "default": "between 1 and 2",
+            "class": "Enemy"
+        },
+        {
+            "file": "js/app.js",
+            "line": 132,
+            "itemtype": "method",
+            "name": "update",
+            "brief": "update the enemy's position, required method for game",
+            "params": [
+                {
+                    "name": "dt,",
+                    "description": "a time delta between ticks",
+                    "type": "Float"
+                }
+            ],
+            "class": "Enemy"
+        },
+        {
+            "file": "js/app.js",
+            "line": 141,
+            "itemtype": "method",
+            "name": "move",
+            "brief": "move the enemy, called by the update() method",
+            "class": "Enemy"
+        },
+        {
+            "file": "js/app.js",
+            "line": 168,
+            "description": "The player's x-movement",
+            "itemtype": "property",
+            "name": "dx",
+            "type": "Integer",
+            "default": "0",
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 176,
+            "description": "The player's y-movement",
+            "itemtype": "property",
+            "name": "dy",
+            "type": "Integer",
+            "default": "0",
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 184,
+            "description": "The player's area for collision detection",
+            "itemtype": "property",
+            "name": "area",
+            "type": "{Object}",
+            "default": "{Object}",
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 203,
+            "itemtype": "method",
+            "name": "update",
+            "brief": "update the Player's position",
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 222,
+            "itemtype": "method",
+            "name": "handleInput",
+            "brief": "handle directions orders",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 279,
+            "itemtype": "method",
+            "name": "stops",
+            "brief": "stoping the player",
+            "class": "Player"
+        },
+        {
+            "file": "js/app.js",
+            "line": 288,
+            "itemtype": "method",
+            "name": "stops",
+            "brief": "the player dies",
+            "class": "Player"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:47"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:57"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:66"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:75"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:84"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:132"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:141"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:203"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:222"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:279"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/app.js:288"
+        }
+    ]
+}

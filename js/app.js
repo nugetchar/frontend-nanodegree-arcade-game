@@ -1,146 +1,274 @@
-
+"use strict";
 /* ==========================
- * ENEMY CLASS              /
+ * CHARACTER CLASS          /
  * ==========================
  */
-var Enemy = function(x, y) {
 
-    // Inheritance from Character
-    //Character.call(x, y);
+/**
+* @class Character
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the picture of the character
+*/
+var Character = function(x, y, sprite){
 
+    //If x is not defined, it is set to 0
     if(typeof x === 'undefined'){
         x = 0;
     }
 
+    //If y is not defined, it is set to 0
     if(typeof y === 'undefined'){
         y = 0;
     }
 
-
-    // location
+    /**
+    * The x location
+    * @property x
+    * @type Integer
+    * @default 0
+    */
     this.x = x;
+
+    /**
+    * The y location
+    * @property y
+    * @type Integer
+    * @default 0
+    */
     this.y = y;
 
-    this.out = false; //is the enemy out of the map ?
-    this.sprite = 'images/enemy-bug.png';
 
-    //speed between 1 and 2
+    //TODO : DEFAULT VALUE
+    this.sprite = sprite;
+};
+
+/**
+* @method getX
+* @brief get the Character's x location
+* @return {Integer} x, the Character's x location
+*/
+Character.prototype.getX = function(){
+    return this.x;
+};
+
+
+/**
+* @method getY
+* @brief get the Character's y location
+* @return {Integer} y, the Character's y location
+*/
+Character.prototype.getY = function(){
+    return this.y;
+};
+
+/**
+* @method setX
+* @brief set the Character's x location
+* @param {Integer} x, the new Character's x location
+*/
+Character.prototype.setX = function(x){
+    this.x = x;
+};
+
+/**
+* @method setY
+* @brief set the Character's y location
+* @param {Integer} y, the new Character's y location
+*/
+Character.prototype.setY = function(y){
+    this.y = y;
+};
+
+/**
+* @method render
+* @brief render the Character
+*/
+Character.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+/* ==========================
+* ENEMY CLASS              /
+* ==========================
+*/
+
+/**
+* @class Enemy
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the Character's sprite
+*/
+var Enemy = function(x, y, sprite) {
+
+    // Inheritance from Character
+    Character.call(this, x, y, sprite);
+
+    /**
+    * A boolean to know if an enemy is out of the map
+    * @property out
+    * @type Boolean
+    * @default false
+    */
+    this.out = false; //is the enemy out of the map ?
+    
+
+    /**
+    * The enemy's speed
+    * @property speed
+    * @type Float
+    * @default between 1 and 2
+    */
     this.speed = (Math.random() * 2) + 1;
 };
 
+//Prototype chain
+Enemy.prototype = Object.create(Character.prototype);
+Enemy.prototype.constructor = Enemy;
 
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+* @method update
+* @brief update the enemy's position, required method for game
+* @param {Float} dt, a time delta between ticks
+*/
 Enemy.prototype.update = function(dt) {
-    setTimeout(Enemy.prototype.move(this), dt);
-    this.out = (this.x === gameVars.limits.outx);
+    setTimeout(this.move(), dt);
 };
 
-Enemy.prototype.move = function(obj){
-    obj.x = obj.x + obj.speed;
-}
-
+/**
+* @method move
+* @brief move the enemy, called by the update() method
+*/
+Enemy.prototype.move = function(){
+    this.setX(this.getX() + this.speed);
+    this.out = (this.getX() === gameVars.LIMITS.outx);
+};
 
 
 
 /* ==========================
- * PLAYER CLASS             /
- * ==========================
- */
-var Player = function(x, y) {
+* PLAYER CLASS             /
+* ==========================
+*/
+/**
+* @class Player
+* @constructor
+* @param {Integer} x : the x location of the character
+* @param {Integer} y : the y location of the character
+* @param {String} sprite : the Character's sprite
+*/
+var Player = function(x, y, sprite) {
 
     // Inheritance from Character
-    //Character.call(x, y);
+    Character.call(this, x, y, sprite);
 
-    if(typeof x === 'undefined'){
-        x = 0;
-    }
-
-    if(typeof y === 'undefined'){
-        y = 0;
-    }
-
-
-    // location
-    this.x = x;
-    this.y = y;
-
+    /**
+    * The player's x-movement
+    * @property dx
+    * @type Integer
+    * @default 0
+    */
     this.dx = 0;
+
+    /**
+    * The player's y-movement
+    * @property dy
+    * @type Integer
+    * @default 0
+    */
     this.dy = 0;
 
+    /**
+    * The player's area for collision detection
+    * @property area
+    * @type {Object}
+    * @default {Object}
+    */
     this.area = {
-        'minx' : this.x - 50,
-        'maxx' : this.x + 50,
-        'miny' : this.y - 44.5,
-        'maxy' : this.y + 44.5
+        'minx' : this.getX() - 50,
+        'maxx' : this.getX() + 50,
+        'miny' : this.getY() - 44.5,
+        'maxy' : this.getY() + 44.5
     };
 
-
-    this.sprite = 'images/char-boy.png';
 };
 
 // Inheritance of prototype
-/*Player.prototype = Object.create(Character.prototype);
-Player.prototype.constructor = Player;*/
+Player.prototype = Object.create(Character.prototype);
+Player.prototype.constructor = Player;
 
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
+/**
+* @method update
+* @brief update the Player's position
+*/
 Player.prototype.update = function() {
-    this.x = this.x + this.dx;
-    this.y = this.y + this.dy;
+    //update the x and y locations
+    this.setX(this.getX() + this.dx);
+    this.setY(this.getY() + this.dy);
 
     //update the player's area
-    this.area.minx = this.x - 50;
-    this.area.maxx = this.x + 50;
-    this.area.miny = this.y - 44.5;
-    this.area.maxy = this.y + 44.5;
+    this.area.minx = this.getX() - 50;
+    this.area.maxx = this.getX() + 50;
+    this.area.miny = this.getY() - 44.5;
+    this.area.maxy = this.getY() + 44.5;
 
+    //stop the player
     this.stops();
 };
 
-// Handle directions orders
+/**
+* @method handleInput
+* @brief handle directions orders
+* @param {String} direction
+*/
 Player.prototype.handleInput = function(direction){
 
     switch(direction) {
+        //if left
         case 'left':
-            if(this.x === gameVars.limits.minx ){
-                this.dx = 0
+            //if we're at the edge of the map, we don't move
+            if(this.x === gameVars.LIMITS.minx ){
+                this.dx = 0;
             } else {
-                this.dx = gameVars.steps.left;
+                //else we update the Player's movement
+                this.dx = gameVars.STEPS.left;
             }
 
             this.dy = 0;
             break;
+
+        //if right
         case 'right':
-            if(this.x === gameVars.limits.maxx ){
-                this.dx = 0
+            if(this.x === gameVars.LIMITS.maxx ){
+                this.dx = 0;
             } else {
-                this.dx = gameVars.steps.right;
+                this.dx = gameVars.STEPS.right;
             }
             this.dy = 0;
             break;
+
+        //if up
         case 'up':
             // We won
-            if(this.y === gameVars.limits.miny ){
+            if(this.y === gameVars.LIMITS.miny ){
                 this.y = 382;
-                this.dy = 0
+                this.dy = 0;
                 alert('Congratulations !');
             } else {
-                this.dy = gameVars.steps.up;
+                this.dy = gameVars.STEPS.up;
             }
             this.dx = 0;
             break;
+
+        //if down
         case 'down':
-            if(this.y === gameVars.limits.maxy ){
-                this.dy = 0
+            if(this.y === gameVars.LIMITS.maxy ){
+                this.dy = 0;
             } else {
-                this.dy = gameVars.steps.down;
+                this.dy = gameVars.STEPS.down;
             }
             this.dx = 0;
             break;
@@ -148,25 +276,33 @@ Player.prototype.handleInput = function(direction){
     }
 };
 
-// Stoping the player
+/**
+* @method stops
+* @brief stoping the player
+*/
 Player.prototype.stops = function(){
     this.dx = 0;
     this.dy = 0;
-}
+};
 
-// The player must DIE
+/**
+* @method stops
+* @brief the player dies
+*/
 Player.prototype.dies = function(){
+    //We stop the player
     this.stops();
-    this.x = gameVars.initialPosition.x;
-    this.y = gameVars.initialPosition.y;
-}
+
+    //Then we replace him at start
+    this.setX(gameVars.initialPosition.x);
+    this.setY(gameVars.initialPosition.y);
+};
 
 
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-
     var allowedKeys = {
         37: 'left',
         38: 'up',
@@ -177,49 +313,45 @@ document.addEventListener('keyup', function(e) {
 });
 
 
-
-// NOTE FOR FURTHER DEV : 
-// REPLACE keyup BY keydown FOR THE PREVIOUS EVENT
-// AND COMMENT THE LINE this.stops() IN THE UPDATE FUNCTION
-// TO HAVE A SMOOTH MOVEMENT
-/*document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
-    player.stops();
-});
-*/
-
-
 /* ==========================================
- * An object containing some global variables/
- * ==========================================
- */
- var gameVars = {
+* An object containing some global variables/
+* ==========================================
+*/
+var gameVars = {
+    //all the enemies
     'allEnemies' : [],
+
+    //the player's initial position
     'initialPosition' : {
         'x' : 201,
-        'y' : 382
+        'y' : 382   
     },
+
+    //the player unique instance
     'player' : null,
-    'limits' : {
+
+    //the map's limits
+    'LIMITS' : {
         'minx' : 1,
         'miny' : 42,
         'maxx' : 401,
         'maxy' : 382,
         'outx' : 505
     },
-    'steps' : {
+
+    //the steps the player can do
+    'STEPS' : {
         'left' : -100,
         'right' : 100,
         'up' : -85,
         'down' : 85
     },
-    'ys_' : [127, 212, 297, 382],
-    'lastYIndex' : null
- };
 
-gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y);
+    //the various Y coordinates an enemy can pop
+    'YS_' : [127, 212, 297, 382],
+
+    //the last Y coordinate an enemy has pop
+    'lastYIndex' : null
+};
+
+gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, 'images/char-boy.png');
