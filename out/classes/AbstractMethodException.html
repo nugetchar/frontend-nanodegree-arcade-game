@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>js/app.js</title>
+    <title>AbstractMethodException</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,116 +85,177 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: js/app.js</h1>
+<h1>AbstractMethodException Class</h1>
+<div class="box meta">
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-&quot;use strict&quot;;
-/* ==========================================
-* An object containing some global variables/
-* ==========================================
-*/
-var gameVars = {
-    //all the enemies
-    &#x27;allEnemies&#x27; : [],
 
-    //all the items
-    &#x27;allItems&#x27; : [],
+        <div class="foundat">
+            Defined in: <a href="../files/js_exceptions.js.html#l1"><code>js&#x2F;exceptions.js:1</code></a>
+        </div>
 
-    //the player&#x27;s initial position
-    &#x27;initialPosition&#x27; : {
-        &#x27;x&#x27; : 201,
-        &#x27;y&#x27; : 382   
-    },
 
-    //the player&#x27;s unique instance
-    &#x27;player&#x27; : null,
+</div>
 
-    //the map&#x27;s limits
-    &#x27;LIMITS&#x27; : {
-        &#x27;minx&#x27; : 1,
-        &#x27;miny&#x27; : 42,
-        &#x27;maxx&#x27; : 401,
-        &#x27;maxy&#x27; : 382,
-        &#x27;outx&#x27; : 505
-    },
 
-    //the steps the player can do
-    &#x27;STEPS&#x27; : {
-        &#x27;left&#x27; : -100,
-        &#x27;right&#x27; : 100,
-        &#x27;up&#x27; : -85,
-        &#x27;down&#x27; : 85
-    },
+<div class="box intro">
+    
+</div>
 
-    //the various Y coordinates an enemy or an item can pop
-    &#x27;YS_&#x27; : [42, 127, 212, 297],
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_AbstractMethodException" class="method item">
+    <h3 class="name"><code>AbstractMethodException</code></h3>
 
-    //the various X coordinates an enemy or an item can pop
-    &#x27;XS_&#x27; : [1, 101, 201, 301, 401],
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>message</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
 
-    //the last Y coordinate an enemy or an item has poped
-    &#x27;lastYIndex&#x27; : null,
 
-    //the last X coordinate an enemy or an item has poped
-    &#x27;lastXIndex&#x27; : null,
 
-    //the game&#x27;s pushers
-    &#x27;pushers&#x27; : [],
 
-    //the game&#x27;s popers
-    &#x27;popers&#x27; : [],
 
-    //the game&#x27;s gems
-    &#x27;GEMS&#x27; : [&#x27;images/gem-blue.png&#x27;, &#x27;images/gem-orange.png&#x27;, &#x27;images/gem-green.png&#x27;],
 
-    //the last gem generated
-    &#x27;lastGemIndex&#x27; : null,
 
-    /**
-    * @method startPushers
-    * @brief for each game&#x27;s pusher, launch its pushing operation
-    */
-    startPushers : function(){
-        this.pushers.forEach(function(pusher) {
-            pusher.push(pusher);
-        });
-    },
 
-    /**
-    * @method startPopers
-    * @brief for each game&#x27;s poper, launch its poping operation
-    */
-    startPopers : function(){
-        this.popers.forEach(function(poper) {
-            poper.pop(poper);
-        });
-    }
-};
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_exceptions.js.html#l1"><code>js&#x2F;exceptions.js:1</code></a>
+        </p>
 
-//adding new pushers
-gameVars.pushers.push(new EnemyPusher(gameVars));
-gameVars.pushers.push(new ItemPusher(gameVars));
 
-//adding new popers
-gameVars.popers.push(new EnemyPoper(gameVars));
-gameVars.popers.push(new ItemPoper(gameVars));
 
-gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, &#x27;images/char-boy.png&#x27;);
+    </div>
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don&#x27;t need to modify this.
-document.addEventListener(&#x27;keyup&#x27;, function(e) {
-    var allowedKeys = {
-        37: &#x27;left&#x27;,
-        38: &#x27;up&#x27;,
-        39: &#x27;right&#x27;,
-        40: &#x27;down&#x27;
-    };
-    gameVars.player.handleInput(allowedKeys[e.keyCode]);
-});
+    <div class="description">
+        
+    </div>
 
-    </pre>
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">message</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>: the exception message</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_startPopers">startPopers</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_startPushers">startPushers</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_startPopers" class="method item">
+    <h3 class="name"><code>startPopers</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_app.js.html#l73"><code>js&#x2F;app.js:73</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+<div id="method_startPushers" class="method item">
+    <h3 class="name"><code>startPushers</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_app.js.html#l63"><code>js&#x2F;app.js:63</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+            </div>
+
+
+
+    </div>
 </div>
                     </div>
                 </div>

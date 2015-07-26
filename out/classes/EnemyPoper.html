@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Enemy</title>
+    <title>EnemyPoper</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,12 +85,12 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Enemy Class</h1>
+<h1>EnemyPoper Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/js_prototypes.js.html#l98"><code>js&#x2F;prototypes.js:98</code></a>
+            Defined in: <a href="../files/js_popers.js.html#l58"><code>js&#x2F;popers.js:58</code></a>
         </div>
 
 
@@ -103,19 +103,13 @@
 
     <div class="constructor">
         <h2>Constructor</h2>
-<div id="method_Enemy" class="method item">
-    <h3 class="name"><code>Enemy</code></h3>
+<div id="method_EnemyPoper" class="method item">
+    <h3 class="name"><code>EnemyPoper</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>x</code>
-                </li>
-                <li class="arg">
-                        <code>y</code>
-                </li>
-                <li class="arg">
-                        <code>sprite</code>
+                        <code>game</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -130,7 +124,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_prototypes.js.html#l98"><code>js&#x2F;prototypes.js:98</code></a>
+        <a href="../files/js_popers.js.html#l58"><code>js&#x2F;popers.js:58</code></a>
         </p>
 
 
@@ -146,34 +140,12 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">x</code>
-                        <span class="type">Integer</span>
+                        <code class="param-name">game</code>
+                        <span class="type">Object</span>
 
 
                     <div class="param-description">
-                        <p>: the x location of the character</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">y</code>
-                        <span class="type">Integer</span>
-
-
-                    <div class="param-description">
-                        <p>: the y location of the character</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">sprite</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <p>: the MapItem's sprite</p>
+                        <p>: the game in which the EnemyPoper will make enemies pop</p>
 
                     </div>
 
@@ -191,7 +163,6 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
     </ul>
 
     <div>
@@ -203,34 +174,16 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_isOut">isOut</a>
+                                <a href="#method_canBePoped">canBePoped</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_move">move</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_update">update</a>
+                                <a href="#method_getCorrectArray">getCorrectArray</a>
 
                             </li>
                     </ul>
                 </div>
 
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                            <li class="index-item property">
-                                <a href="#property_out">out</a>
-
-                            </li>
-                            <li class="index-item property">
-                                <a href="#property_speed">speed</a>
-
-                            </li>
-                    </ul>
-                </div>
 
 
         </div>
@@ -238,8 +191,72 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_isOut" class="method item">
-    <h3 class="name"><code>isOut</code></h3>
+<div id="method_canBePoped" class="method item">
+    <h3 class="name"><code>canBePoped</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>enemy</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/js_popers.js.html#l82"><code>js&#x2F;popers.js:82</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">enemy</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>: the enemy we want to pop</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                    <p>TRUE if the enemy can be poped, else FALSE</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getCorrectArray" class="method item">
+    <h3 class="name"><code>getCorrectArray</code></h3>
 
         <span class="paren">()</span>
 
@@ -256,7 +273,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_prototypes.js.html#l151"><code>js&#x2F;prototypes.js:151</code></a>
+        <a href="../files/js_popers.js.html#l73"><code>js&#x2F;popers.js:73</code></a>
         </p>
 
 
@@ -272,154 +289,15 @@
             <h4>Returns:</h4>
 
             <div class="returns-description">
-                    <p>TRUE if the enemy is out, else FALSE</p>
+                    <p>the enemies array of the game</p>
 
             </div>
         </div>
 
 
 </div>
-<div id="method_move" class="method item">
-    <h3 class="name"><code>move</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_prototypes.js.html#l142"><code>js&#x2F;prototypes.js:142</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-
-</div>
-<div id="method_update" class="method item">
-    <h3 class="name"><code>update</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>dt,</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_prototypes.js.html#l133"><code>js&#x2F;prototypes.js:133</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">dt,</code>
-                        <span class="type">Float</span>
-
-
-                    <div class="param-description">
-                        <p>a time delta between ticks</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
             </div>
 
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-                    <div id="property_out" class="property item">
-                        <h3 class="name"><code>out</code></h3>
-                        <span class="type">Boolean</span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/js_prototypes.js.html#l110"><code>js&#x2F;prototypes.js:110</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>A boolean to know if an enemy is out of the map</p>
-                    
-                        </div>
-                    
-                            <p><strong>Default:</strong> false</p>
-                    
-                    
-                    </div>
-                    <div id="property_speed" class="property item">
-                        <h3 class="name"><code>speed</code></h3>
-                        <span class="type">Float</span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/js_prototypes.js.html#l119"><code>js&#x2F;prototypes.js:119</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>The enemy's speed</p>
-                    
-                        </div>
-                    
-                            <p><strong>Default:</strong> between 1 and 2</p>
-                    
-                    
-                    </div>
-            </div>
 
 
     </div>

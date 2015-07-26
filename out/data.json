@@ -4,10 +4,49 @@
         "js/app.js": {
             "name": "js/app.js",
             "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/exceptions.js": {
+            "name": "js/exceptions.js",
+            "modules": {},
             "classes": {
-                "Character": 1,
+                "AbstractMethodException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/popers.js": {
+            "name": "js/popers.js",
+            "modules": {},
+            "classes": {
+                "ObjectPoper": 1,
+                "EnemyPoper": 1,
+                "ItemPoper": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/prototypes.js": {
+            "name": "js/prototypes.js",
+            "modules": {},
+            "classes": {
+                "MapItem": 1,
                 "Enemy": 1,
-                "Player": 1
+                "Player": 1,
+                "Item": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "js/pushers.js": {
+            "name": "js/pushers.js",
+            "modules": {},
+            "classes": {
+                "ObjectPusher": 1,
+                "EnemyPusher": 1,
+                "ItemPusher": 1
             },
             "fors": {},
             "namespaces": {}
@@ -15,15 +54,90 @@
     },
     "modules": {},
     "classes": {
-        "Character": {
-            "name": "Character",
-            "shortname": "Character",
+        "AbstractMethodException": {
+            "name": "AbstractMethodException",
+            "shortname": "AbstractMethodException",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "js/app.js",
+            "file": "js/exceptions.js",
+            "line": 1,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "message",
+                    "description": ": the exception message"
+                }
+            ]
+        },
+        "ObjectPoper": {
+            "name": "ObjectPoper",
+            "shortname": "ObjectPoper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/popers.js",
+            "line": 7,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the ObjectPoper will make objects pop",
+                    "type": "Object"
+                }
+            ]
+        },
+        "EnemyPoper": {
+            "name": "EnemyPoper",
+            "shortname": "EnemyPoper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/popers.js",
+            "line": 58,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the EnemyPoper will make enemies pop",
+                    "type": "Object"
+                }
+            ]
+        },
+        "ItemPoper": {
+            "name": "ItemPoper",
+            "shortname": "ItemPoper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/popers.js",
+            "line": 99,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the ItemPoper will make items pop",
+                    "type": "Object"
+                }
+            ]
+        },
+        "MapItem": {
+            "name": "MapItem",
+            "shortname": "MapItem",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/prototypes.js",
             "line": 7,
             "is_constructor": 1,
             "params": [
@@ -52,8 +166,8 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "js/app.js",
-            "line": 97,
+            "file": "js/prototypes.js",
+            "line": 98,
             "is_constructor": 1,
             "params": [
                 {
@@ -68,7 +182,7 @@
                 },
                 {
                     "name": "sprite",
-                    "description": ": the Character's sprite",
+                    "description": ": the MapItem's sprite",
                     "type": "String"
                 }
             ]
@@ -81,8 +195,8 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "js/app.js",
-            "line": 156,
+            "file": "js/prototypes.js",
+            "line": 168,
             "is_constructor": 1,
             "params": [
                 {
@@ -97,8 +211,94 @@
                 },
                 {
                     "name": "sprite",
-                    "description": ": the Character's sprite",
+                    "description": ": the MapItem's sprite",
                     "type": "String"
+                }
+            ]
+        },
+        "Item": {
+            "name": "Item",
+            "shortname": "Item",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/prototypes.js",
+            "line": 341,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": ": the x location of the item",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": ": the y location of the item",
+                    "type": "Integer"
+                },
+                {
+                    "name": "sprite",
+                    "description": ": the Item's sprite",
+                    "type": "String"
+                }
+            ]
+        },
+        "ObjectPusher": {
+            "name": "ObjectPusher",
+            "shortname": "ObjectPusher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/pushers.js",
+            "line": 8,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the ObjectPusher will make objects push",
+                    "type": "Object"
+                }
+            ]
+        },
+        "EnemyPusher": {
+            "name": "EnemyPusher",
+            "shortname": "EnemyPusher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/pushers.js",
+            "line": 75,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the EnemyPusher will make enemies push",
+                    "type": "Object"
+                }
+            ]
+        },
+        "ItemPusher": {
+            "name": "ItemPusher",
+            "shortname": "ItemPusher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "js/pushers.js",
+            "line": 125,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": ": the game in which the ItemPusher will make items push",
+                    "type": "Object"
                 }
             ]
         }
@@ -106,89 +306,183 @@
     "classitems": [
         {
             "file": "js/app.js",
+            "line": 63,
+            "itemtype": "method",
+            "name": "startPushers",
+            "brief": "for each game's pusher, launch its pushing operation",
+            "class": "AbstractMethodException"
+        },
+        {
+            "file": "js/app.js",
+            "line": 73,
+            "itemtype": "method",
+            "name": "startPopers",
+            "brief": "for each game's poper, launch its poping operation",
+            "class": "AbstractMethodException"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 19,
+            "description": "The game's reference",
+            "itemtype": "property",
+            "name": "game",
+            "type": "Object",
+            "default": "null",
+            "class": "ObjectPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 28,
+            "itemtype": "method",
+            "name": "getGame",
+            "brief": "get the game's reference of the poper",
+            "class": "ObjectPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 37,
+            "itemtype": "method",
+            "name": "pop",
+            "brief": "make an object pop into the game",
+            "class": "ObjectPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 73,
+            "itemtype": "method",
+            "name": "getCorrectArray",
+            "return": {
+                "description": "the enemies array of the game"
+            },
+            "class": "EnemyPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 82,
+            "itemtype": "method",
+            "name": "canBePoped",
+            "params": [
+                {
+                    "name": "enemy",
+                    "description": ": the enemy we want to pop"
+                }
+            ],
+            "return": {
+                "description": "TRUE if the enemy can be poped, else FALSE"
+            },
+            "class": "EnemyPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 113,
+            "itemtype": "method",
+            "name": "getCorrectArray",
+            "return": {
+                "description": "the items array of the game"
+            },
+            "class": "ItemPoper"
+        },
+        {
+            "file": "js/popers.js",
+            "line": 122,
+            "itemtype": "method",
+            "name": "canBePoped",
+            "params": [
+                {
+                    "name": "item",
+                    "description": ": the item we want to pop"
+                }
+            ],
+            "return": {
+                "description": "TRUE if the item can be poped, else FALSE"
+            },
+            "class": "ItemPoper"
+        },
+        {
+            "file": "js/prototypes.js",
             "line": 26,
             "description": "The x location",
             "itemtype": "property",
             "name": "x",
             "type": "Integer",
             "default": "0",
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 34,
             "description": "The y location",
             "itemtype": "property",
             "name": "y",
             "type": "Integer",
             "default": "0",
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 47,
             "itemtype": "method",
             "name": "getX",
-            "brief": "get the Character's x location",
+            "brief": "get the MapItem's x location",
             "return": {
-                "description": "x, the Character's x location",
+                "description": "x, the MapItem's x location",
                 "type": "Integer"
             },
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 57,
             "itemtype": "method",
             "name": "getY",
-            "brief": "get the Character's y location",
+            "brief": "get the MapItem's y location",
             "return": {
-                "description": "y, the Character's y location",
+                "description": "y, the MapItem's y location",
                 "type": "Integer"
             },
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 66,
             "itemtype": "method",
             "name": "setX",
-            "brief": "set the Character's x location",
+            "brief": "set the MapItem's x location",
             "params": [
                 {
                     "name": "x,",
-                    "description": "the new Character's x location",
+                    "description": "the new MapItem's x location",
                     "type": "Integer"
                 }
             ],
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 75,
             "itemtype": "method",
             "name": "setY",
-            "brief": "set the Character's y location",
+            "brief": "set the MapItem's y location",
             "params": [
                 {
                     "name": "y,",
-                    "description": "the new Character's y location",
+                    "description": "the new MapItem's y location",
                     "type": "Integer"
                 }
             ],
-            "class": "Character"
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
+            "file": "js/prototypes.js",
             "line": 84,
             "itemtype": "method",
             "name": "render",
-            "brief": "render the Character",
-            "class": "Character"
+            "brief": "render the MapItem",
+            "class": "MapItem"
         },
         {
-            "file": "js/app.js",
-            "line": 109,
+            "file": "js/prototypes.js",
+            "line": 110,
             "description": "A boolean to know if an enemy is out of the map",
             "itemtype": "property",
             "name": "out",
@@ -197,8 +491,8 @@
             "class": "Enemy"
         },
         {
-            "file": "js/app.js",
-            "line": 118,
+            "file": "js/prototypes.js",
+            "line": 119,
             "description": "The enemy's speed",
             "itemtype": "property",
             "name": "speed",
@@ -207,8 +501,8 @@
             "class": "Enemy"
         },
         {
-            "file": "js/app.js",
-            "line": 132,
+            "file": "js/prototypes.js",
+            "line": 133,
             "itemtype": "method",
             "name": "update",
             "brief": "update the enemy's position, required method for game",
@@ -222,16 +516,27 @@
             "class": "Enemy"
         },
         {
-            "file": "js/app.js",
-            "line": 141,
+            "file": "js/prototypes.js",
+            "line": 142,
             "itemtype": "method",
             "name": "move",
             "brief": "move the enemy, called by the update() method",
             "class": "Enemy"
         },
         {
-            "file": "js/app.js",
-            "line": 168,
+            "file": "js/prototypes.js",
+            "line": 151,
+            "itemtype": "method",
+            "name": "isOut",
+            "brief": "is the enemy out of the map ?",
+            "return": {
+                "description": "TRUE if the enemy is out, else FALSE"
+            },
+            "class": "Enemy"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 180,
             "description": "The player's x-movement",
             "itemtype": "property",
             "name": "dx",
@@ -240,8 +545,8 @@
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 176,
+            "file": "js/prototypes.js",
+            "line": 188,
             "description": "The player's y-movement",
             "itemtype": "property",
             "name": "dy",
@@ -250,8 +555,8 @@
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 184,
+            "file": "js/prototypes.js",
+            "line": 196,
             "description": "The player's area for collision detection",
             "itemtype": "property",
             "name": "area",
@@ -260,16 +565,26 @@
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 203,
+            "file": "js/prototypes.js",
+            "line": 209,
+            "description": "The player's score",
+            "itemtype": "property",
+            "name": "score",
+            "type": "{Integer}",
+            "default": "0",
+            "class": "Player"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 223,
             "itemtype": "method",
             "name": "update",
             "brief": "update the Player's position",
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 222,
+            "file": "js/prototypes.js",
+            "line": 242,
             "itemtype": "method",
             "name": "handleInput",
             "brief": "handle directions orders",
@@ -283,66 +598,295 @@
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 279,
+            "file": "js/prototypes.js",
+            "line": 299,
             "itemtype": "method",
             "name": "stops",
             "brief": "stoping the player",
             "class": "Player"
         },
         {
-            "file": "js/app.js",
-            "line": 288,
+            "file": "js/prototypes.js",
+            "line": 308,
             "itemtype": "method",
             "name": "stops",
             "brief": "the player dies",
             "class": "Player"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 324,
+            "itemtype": "method",
+            "name": "earnPoints",
+            "brief": "add points to the player's score",
+            "params": [
+                {
+                    "name": "the",
+                    "description": "points to add"
+                }
+            ],
+            "class": "Player"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 354,
+            "description": "A boolean to know if an item is collected",
+            "itemtype": "property",
+            "name": "out",
+            "type": "Boolean",
+            "default": "false",
+            "class": "Item"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 373,
+            "itemtype": "method",
+            "name": "isCollected",
+            "brief": "is the item collected ?",
+            "return": {
+                "description": "TRUE if the item is collected, else FALSE"
+            },
+            "class": "Item"
+        },
+        {
+            "file": "js/prototypes.js",
+            "line": 383,
+            "methode": "getValue",
+            "brief": "get the value of the Item",
+            "return": {
+                "description": "an Integer"
+            },
+            "class": "Item"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 20,
+            "description": "The game's reference",
+            "itemtype": "property",
+            "name": "game",
+            "type": "Object",
+            "default": "null",
+            "class": "ObjectPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 28,
+            "description": "The pusher's lock, used in order to control Objects pushing",
+            "itemtype": "property",
+            "name": "lock",
+            "type": "Boolean",
+            "default": "false",
+            "class": "ObjectPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 38,
+            "itemtype": "method",
+            "name": "getGame",
+            "brief": "get the game's reference of the pusher",
+            "class": "ObjectPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 46,
+            "itemtype": "method",
+            "name": "getLock",
+            "brief": "release the lock of the pusher",
+            "class": "ObjectPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 56,
+            "itemtype": "method",
+            "name": "push",
+            "brief": "make an object push into the game",
+            "class": "ObjectPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 89,
+            "itemtype": "method",
+            "name": "insertNewRandomObject",
+            "brief": "insert a new random instance into the correct array of the game",
+            "class": "EnemyPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 102,
+            "itemtype": "method",
+            "name": "getMaxTimePush",
+            "brief": "get the max time it should take to create an enemy",
+            "return": {
+                "description": "and",
+                "type": "Integer"
+            },
+            "class": "EnemyPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 111,
+            "itemtype": "method",
+            "name": "getMinTimePush",
+            "brief": "get the min time it should take to create an enemy",
+            "return": {
+                "description": "and",
+                "type": "Integer"
+            },
+            "class": "EnemyPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 139,
+            "itemtype": "method",
+            "name": "insertNewRandomObject",
+            "brief": "insert a new random instance into the correct array of the game",
+            "class": "ItemPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 166,
+            "itemtype": "method",
+            "name": "getMaxTimePush",
+            "brief": "get the max time it should take to create an item",
+            "return": {
+                "description": "and",
+                "type": "Integer"
+            },
+            "class": "ItemPusher"
+        },
+        {
+            "file": "js/pushers.js",
+            "line": 175,
+            "itemtype": "method",
+            "name": "getMinTimePush",
+            "brief": "get the min time it should take to create an item",
+            "return": {
+                "description": "and",
+                "type": "Integer"
+            },
+            "class": "ItemPusher"
         }
     ],
     "warnings": [
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:47"
+            "line": " js/app.js:63"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:57"
+            "line": " js/app.js:73"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:66"
+            "line": " js/popers.js:28"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:75"
+            "line": " js/popers.js:37"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:84"
+            "line": " js/prototypes.js:47"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:132"
+            "line": " js/prototypes.js:57"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:141"
+            "line": " js/prototypes.js:66"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:203"
+            "line": " js/prototypes.js:75"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:222"
+            "line": " js/prototypes.js:84"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:279"
+            "line": " js/prototypes.js:133"
         },
         {
             "message": "unknown tag: brief",
-            "line": " js/app.js:288"
+            "line": " js/prototypes.js:142"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:151"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:223"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:242"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:299"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:308"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:324"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:373"
+        },
+        {
+            "message": "unknown tag: methode",
+            "line": " js/prototypes.js:383"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/prototypes.js:383"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:38"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:46"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:56"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:89"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:102"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:111"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:139"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:166"
+        },
+        {
+            "message": "unknown tag: brief",
+            "line": " js/pushers.js:175"
+        },
+        {
+            "message": "Missing item type",
+            "line": " js/prototypes.js:383"
         }
     ]
 }

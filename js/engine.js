@@ -42,15 +42,19 @@ var Engine = (function(global) {
          */
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
-
-        
-        generateEnemy(gameVars);
         
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
         update(gameVars, dt);
         render(gameVars);
+
+
+        /*Push enemies and items*/
+        gameVars.startPushers();
+
+        /*Pop enemies which are out and items which are collected*/
+        gameVars.startPopers();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -73,21 +77,21 @@ var Engine = (function(global) {
         main();
     }
 
-    /* Global function wich generates an enemy and pushes him into an array */
+    /* Global function wich generates an enemy and pushes him into an array 
     function generateEnemy(game){  
         
         if(acceptGeneration){
             acceptGeneration = false;
             setTimeout(function(){
                 var i;
-                while((i = Math.floor((Math.random() * 3) + 0)) === game.lastYIndex);
+                while((i = Math.round((Math.random() * 3) + 0)) === game.lastYIndex);
                 game.lastYIndex = i;
                 game.allEnemies.push(new Enemy(0, game.YS_[i], 'images/enemy-bug.png'));
                 acceptGeneration = true;
-            }, (Math.random() * 1200) + 500 );
+            }, (Math.random() * 1000) + 500 );
         }
     }
-
+    */
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
@@ -131,9 +135,9 @@ var Engine = (function(global) {
         }
      }
 
-     function samePlace(player, enemy){
+     function samePlace(player, mapItem){
 
-        return ((enemy.x >= player.area.minx && enemy.x <= player.area.maxx) && (enemy.y >= player.area.miny && enemy.y <= player.area.maxy));
+        return ((mapItem.x >= player.area.minx && mapItem.x <= player.area.maxx) && (mapItem.y >= player.area.miny && mapItem.y <= player.area.maxy));
      }
 
      function checkCollisions(game){
@@ -142,6 +146,14 @@ var Engine = (function(global) {
                 game.player.dies();
             }
         });
+        
+        game.allItems.forEach(function(item){
+            if(samePlace(game.player, item)){
+                game.player.earnPoints(item.getValue());
+                item.collected = true;
+            }
+        });
+        
      }
 
 
@@ -152,6 +164,9 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render(game) {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -184,6 +199,15 @@ var Engine = (function(global) {
             }
         }
 
+        /* Render the score */
+        //Drawing state
+        ctx.font = '36pt Impact';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#000000';
+
+        ctx.fillText(game.player.score, canvas.width/2, 40);
+        ctx.strokeText(game.player.score, canvas.width/2, 40);
 
         renderEntities(game);
     }
@@ -197,7 +221,15 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         game.allEnemies.forEach(function(enemy) {
-            enemy.render();
+            if(!enemy.isOut()){
+                enemy.render();
+            }
+        });
+
+        game.allItems.forEach(function(item) {
+            if(!item.isCollected()){
+                item.render();
+            }
         });
 
         game.player.render();
@@ -220,6 +252,9 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/gem-blue.png',
+        'images/gem-orange.png',
+        'images/gem-green.png',
         'images/char-boy.png'
     ]);
     Resources.onReady(init);

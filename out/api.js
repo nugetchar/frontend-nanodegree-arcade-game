@@ -1,8 +1,16 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Character",
+        "AbstractMethodException",
         "Enemy",
+        "EnemyPoper",
+        "EnemyPusher",
+        "Item",
+        "ItemPoper",
+        "ItemPusher",
+        "MapItem",
+        "ObjectPoper",
+        "ObjectPusher",
         "Player"
     ],
     "modules": [],

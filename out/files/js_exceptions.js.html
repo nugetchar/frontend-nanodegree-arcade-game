@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>js/app.js</title>
+    <title>js/exceptions.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,114 +85,19 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: js/app.js</h1>
+<h1 class="file-heading">File: js/exceptions.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-&quot;use strict&quot;;
-/* ==========================================
-* An object containing some global variables/
-* ==========================================
+/**
+* @class AbstractMethodException
+* @constructor
+* @param message : the exception message
 */
-var gameVars = {
-    //all the enemies
-    &#x27;allEnemies&#x27; : [],
-
-    //all the items
-    &#x27;allItems&#x27; : [],
-
-    //the player&#x27;s initial position
-    &#x27;initialPosition&#x27; : {
-        &#x27;x&#x27; : 201,
-        &#x27;y&#x27; : 382   
-    },
-
-    //the player&#x27;s unique instance
-    &#x27;player&#x27; : null,
-
-    //the map&#x27;s limits
-    &#x27;LIMITS&#x27; : {
-        &#x27;minx&#x27; : 1,
-        &#x27;miny&#x27; : 42,
-        &#x27;maxx&#x27; : 401,
-        &#x27;maxy&#x27; : 382,
-        &#x27;outx&#x27; : 505
-    },
-
-    //the steps the player can do
-    &#x27;STEPS&#x27; : {
-        &#x27;left&#x27; : -100,
-        &#x27;right&#x27; : 100,
-        &#x27;up&#x27; : -85,
-        &#x27;down&#x27; : 85
-    },
-
-    //the various Y coordinates an enemy or an item can pop
-    &#x27;YS_&#x27; : [42, 127, 212, 297],
-
-    //the various X coordinates an enemy or an item can pop
-    &#x27;XS_&#x27; : [1, 101, 201, 301, 401],
-
-    //the last Y coordinate an enemy or an item has poped
-    &#x27;lastYIndex&#x27; : null,
-
-    //the last X coordinate an enemy or an item has poped
-    &#x27;lastXIndex&#x27; : null,
-
-    //the game&#x27;s pushers
-    &#x27;pushers&#x27; : [],
-
-    //the game&#x27;s popers
-    &#x27;popers&#x27; : [],
-
-    //the game&#x27;s gems
-    &#x27;GEMS&#x27; : [&#x27;images/gem-blue.png&#x27;, &#x27;images/gem-orange.png&#x27;, &#x27;images/gem-green.png&#x27;],
-
-    //the last gem generated
-    &#x27;lastGemIndex&#x27; : null,
-
-    /**
-    * @method startPushers
-    * @brief for each game&#x27;s pusher, launch its pushing operation
-    */
-    startPushers : function(){
-        this.pushers.forEach(function(pusher) {
-            pusher.push(pusher);
-        });
-    },
-
-    /**
-    * @method startPopers
-    * @brief for each game&#x27;s poper, launch its poping operation
-    */
-    startPopers : function(){
-        this.popers.forEach(function(poper) {
-            poper.pop(poper);
-        });
-    }
-};
-
-//adding new pushers
-gameVars.pushers.push(new EnemyPusher(gameVars));
-gameVars.pushers.push(new ItemPusher(gameVars));
-
-//adding new popers
-gameVars.popers.push(new EnemyPoper(gameVars));
-gameVars.popers.push(new ItemPoper(gameVars));
-
-gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, &#x27;images/char-boy.png&#x27;);
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don&#x27;t need to modify this.
-document.addEventListener(&#x27;keyup&#x27;, function(e) {
-    var allowedKeys = {
-        37: &#x27;left&#x27;,
-        38: &#x27;up&#x27;,
-        39: &#x27;right&#x27;,
-        40: &#x27;down&#x27;
-    };
-    gameVars.player.handleInput(allowedKeys[e.keyCode]);
-});
+var AbstractMethodException = function(message){
+	this.message = message;
+	this.name = &#x27;AbstractMethodException&#x27;;
+}
 
     </pre>
 </div>

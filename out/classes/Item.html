@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Enemy</title>
+    <title>Item</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,12 +85,12 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Enemy Class</h1>
+<h1>Item Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/js_prototypes.js.html#l98"><code>js&#x2F;prototypes.js:98</code></a>
+            Defined in: <a href="../files/js_prototypes.js.html#l341"><code>js&#x2F;prototypes.js:341</code></a>
         </div>
 
 
@@ -103,8 +103,8 @@
 
     <div class="constructor">
         <h2>Constructor</h2>
-<div id="method_Enemy" class="method item">
-    <h3 class="name"><code>Enemy</code></h3>
+<div id="method_Item" class="method item">
+    <h3 class="name"><code>Item</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
@@ -130,7 +130,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_prototypes.js.html#l98"><code>js&#x2F;prototypes.js:98</code></a>
+        <a href="../files/js_prototypes.js.html#l341"><code>js&#x2F;prototypes.js:341</code></a>
         </p>
 
 
@@ -151,7 +151,7 @@
 
 
                     <div class="param-description">
-                        <p>: the x location of the character</p>
+                        <p>: the x location of the item</p>
 
                     </div>
 
@@ -162,7 +162,7 @@
 
 
                     <div class="param-description">
-                        <p>: the y location of the character</p>
+                        <p>: the y location of the item</p>
 
                     </div>
 
@@ -173,7 +173,7 @@
 
 
                     <div class="param-description">
-                        <p>: the MapItem's sprite</p>
+                        <p>: the Item's sprite</p>
 
                     </div>
 
@@ -203,15 +203,7 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_isOut">isOut</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_move">move</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_update">update</a>
+                                <a href="#method_isCollected">isCollected</a>
 
                             </li>
                     </ul>
@@ -225,10 +217,6 @@
                                 <a href="#property_out">out</a>
 
                             </li>
-                            <li class="index-item property">
-                                <a href="#property_speed">speed</a>
-
-                            </li>
                     </ul>
                 </div>
 
@@ -238,8 +226,8 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_isOut" class="method item">
-    <h3 class="name"><code>isOut</code></h3>
+<div id="method_isCollected" class="method item">
+    <h3 class="name"><code>isCollected</code></h3>
 
         <span class="paren">()</span>
 
@@ -256,7 +244,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_prototypes.js.html#l151"><code>js&#x2F;prototypes.js:151</code></a>
+        <a href="../files/js_prototypes.js.html#l373"><code>js&#x2F;prototypes.js:373</code></a>
         </p>
 
 
@@ -272,93 +260,10 @@
             <h4>Returns:</h4>
 
             <div class="returns-description">
-                    <p>TRUE if the enemy is out, else FALSE</p>
+                    <p>TRUE if the item is collected, else FALSE</p>
 
             </div>
         </div>
-
-
-</div>
-<div id="method_move" class="method item">
-    <h3 class="name"><code>move</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_prototypes.js.html#l142"><code>js&#x2F;prototypes.js:142</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-
-</div>
-<div id="method_update" class="method item">
-    <h3 class="name"><code>update</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>dt,</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/js_prototypes.js.html#l133"><code>js&#x2F;prototypes.js:133</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">dt,</code>
-                        <span class="type">Float</span>
-
-
-                    <div class="param-description">
-                        <p>a time delta between ticks</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
 
 
 </div>
@@ -378,44 +283,18 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/js_prototypes.js.html#l110"><code>js&#x2F;prototypes.js:110</code></a>
+                            <a href="../files/js_prototypes.js.html#l354"><code>js&#x2F;prototypes.js:354</code></a>
                             </p>
                     
                     
                         </div>
                     
                         <div class="description">
-                            <p>A boolean to know if an enemy is out of the map</p>
+                            <p>A boolean to know if an item is collected</p>
                     
                         </div>
                     
                             <p><strong>Default:</strong> false</p>
-                    
-                    
-                    </div>
-                    <div id="property_speed" class="property item">
-                        <h3 class="name"><code>speed</code></h3>
-                        <span class="type">Float</span>
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/js_prototypes.js.html#l119"><code>js&#x2F;prototypes.js:119</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>The enemy's speed</p>
-                    
-                        </div>
-                    
-                            <p><strong>Default:</strong> between 1 and 2</p>
                     
                     
                     </div>

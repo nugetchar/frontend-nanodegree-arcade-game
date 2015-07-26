@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>js/app.js</title>
+    <title>js/popers.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,114 +85,139 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: js/app.js</h1>
+<h1 class="file-heading">File: js/popers.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;;
-/* ==========================================
-* An object containing some global variables/
-* ==========================================
+/* ======================
+* OBJECTPOPER PROTOTYPE /
+* =======================
 */
-var gameVars = {
-    //all the enemies
-    &#x27;allEnemies&#x27; : [],
 
-    //all the items
-    &#x27;allItems&#x27; : [],
+/**
+* @class ObjectPoper
+* @constructor
+* @param {Object} game : the game in which the ObjectPoper will make objects pop
+*/
 
-    //the player&#x27;s initial position
-    &#x27;initialPosition&#x27; : {
-        &#x27;x&#x27; : 201,
-        &#x27;y&#x27; : 382   
-    },
+var ObjectPoper = function(game){
 
-    //the player&#x27;s unique instance
-    &#x27;player&#x27; : null,
-
-    //the map&#x27;s limits
-    &#x27;LIMITS&#x27; : {
-        &#x27;minx&#x27; : 1,
-        &#x27;miny&#x27; : 42,
-        &#x27;maxx&#x27; : 401,
-        &#x27;maxy&#x27; : 382,
-        &#x27;outx&#x27; : 505
-    },
-
-    //the steps the player can do
-    &#x27;STEPS&#x27; : {
-        &#x27;left&#x27; : -100,
-        &#x27;right&#x27; : 100,
-        &#x27;up&#x27; : -85,
-        &#x27;down&#x27; : 85
-    },
-
-    //the various Y coordinates an enemy or an item can pop
-    &#x27;YS_&#x27; : [42, 127, 212, 297],
-
-    //the various X coordinates an enemy or an item can pop
-    &#x27;XS_&#x27; : [1, 101, 201, 301, 401],
-
-    //the last Y coordinate an enemy or an item has poped
-    &#x27;lastYIndex&#x27; : null,
-
-    //the last X coordinate an enemy or an item has poped
-    &#x27;lastXIndex&#x27; : null,
-
-    //the game&#x27;s pushers
-    &#x27;pushers&#x27; : [],
-
-    //the game&#x27;s popers
-    &#x27;popers&#x27; : [],
-
-    //the game&#x27;s gems
-    &#x27;GEMS&#x27; : [&#x27;images/gem-blue.png&#x27;, &#x27;images/gem-orange.png&#x27;, &#x27;images/gem-green.png&#x27;],
-
-    //the last gem generated
-    &#x27;lastGemIndex&#x27; : null,
+    if(typeof game === &#x27;undefined&#x27;){
+        game = null;
+    }
 
     /**
-    * @method startPushers
-    * @brief for each game&#x27;s pusher, launch its pushing operation
+    * The game&#x27;s reference
+    * @property game
+    * @type Object
+    * @default null
     */
-    startPushers : function(){
-        this.pushers.forEach(function(pusher) {
-            pusher.push(pusher);
-        });
-    },
+    this.game = game;
+};
 
-    /**
-    * @method startPopers
-    * @brief for each game&#x27;s poper, launch its poping operation
-    */
-    startPopers : function(){
-        this.popers.forEach(function(poper) {
-            poper.pop(poper);
-        });
+/**
+* @method getGame
+* @brief get the game&#x27;s reference of the poper
+*/
+ObjectPoper.prototype.getGame = function(){
+    return this.game;
+};
+
+
+/**
+* @method pop
+* @brief make an object pop into the game
+*/
+ObjectPoper.prototype.pop = function(that){
+    var array = that.getCorrectArray(); //we retrieve the correct array
+    for(var i=0; i&lt;array.length; ++i){
+        if(that.canBePoped(array[i])){
+            delete array[i];
+            array.splice(i, 1);
+        }
     }
 };
 
-//adding new pushers
-gameVars.pushers.push(new EnemyPusher(gameVars));
-gameVars.pushers.push(new ItemPusher(gameVars));
 
-//adding new popers
-gameVars.popers.push(new EnemyPoper(gameVars));
-gameVars.popers.push(new ItemPoper(gameVars));
 
-gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, &#x27;images/char-boy.png&#x27;);
+/* =====================
+* ENEMYPOPER PROTOTYPE /
+* ======================
+*/
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don&#x27;t need to modify this.
-document.addEventListener(&#x27;keyup&#x27;, function(e) {
-    var allowedKeys = {
-        37: &#x27;left&#x27;,
-        38: &#x27;up&#x27;,
-        39: &#x27;right&#x27;,
-        40: &#x27;down&#x27;
-    };
-    gameVars.player.handleInput(allowedKeys[e.keyCode]);
-});
+/**
+* @class EnemyPoper
+* @constructor
+* @param {Object} game : the game in which the EnemyPoper will make enemies pop
+*/
+
+var EnemyPoper = function(game){
+    ObjectPoper.call(this, game);
+};
+
+//Inheritance of prototype
+EnemyPoper.prototype = Object.create(ObjectPoper.prototype);
+EnemyPoper.constructor = EnemyPoper;
+
+
+/**
+* @method getCorrectArray
+* @return the enemies array of the game
+*/
+EnemyPoper.prototype.getCorrectArray = function(){
+    return this.getGame().allEnemies;
+};
+
+
+/**
+* @method canBePoped
+* @param enemy : the enemy we want to pop
+* @return TRUE if the enemy can be poped, else FALSE
+*/
+EnemyPoper.prototype.canBePoped = function(enemy){
+    return enemy.isOut();
+};
+
+
+
+
+/* =====================
+* ITEMPOPER PROTOTYPE /
+* ======================
+*/
+
+/**
+* @class ItemPoper
+* @constructor
+* @param {Object} game : the game in which the ItemPoper will make items pop
+*/
+
+var ItemPoper = function(game){
+    ObjectPoper.call(this, game);
+};
+
+//Inheritance of prototype
+ItemPoper.prototype = Object.create(ObjectPoper.prototype);
+ItemPoper.constructor = ItemPoper;
+
+/**
+* @method getCorrectArray
+* @return the items array of the game
+*/
+ItemPoper.prototype.getCorrectArray = function(){
+    return this.getGame().allItems;
+};
+
+
+/**
+* @method canBePoped
+* @param item : the item we want to pop
+* @return TRUE if the item can be poped, else FALSE
+*/
+ItemPoper.prototype.canBePoped = function(item){
+    return item.isCollected();
+};
 
     </pre>
 </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>js/app.js</title>
+    <title>js/pushers.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -85,115 +85,192 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: js/app.js</h1>
+<h1 class="file-heading">File: js/pushers.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
+
 &quot;use strict&quot;;
-/* ==========================================
-* An object containing some global variables/
-* ==========================================
+/* ======================
+* OBJECTPUSHER PROTOTYPE /
+* =======================
 */
-var gameVars = {
-    //all the enemies
-    &#x27;allEnemies&#x27; : [],
 
-    //all the items
-    &#x27;allItems&#x27; : [],
+/**
+* @class ObjectPusher
+* @constructor
+* @param {Object} game : the game in which the ObjectPusher will make objects push
+*/
 
-    //the player&#x27;s initial position
-    &#x27;initialPosition&#x27; : {
-        &#x27;x&#x27; : 201,
-        &#x27;y&#x27; : 382   
-    },
+var ObjectPusher = function(game){
 
-    //the player&#x27;s unique instance
-    &#x27;player&#x27; : null,
-
-    //the map&#x27;s limits
-    &#x27;LIMITS&#x27; : {
-        &#x27;minx&#x27; : 1,
-        &#x27;miny&#x27; : 42,
-        &#x27;maxx&#x27; : 401,
-        &#x27;maxy&#x27; : 382,
-        &#x27;outx&#x27; : 505
-    },
-
-    //the steps the player can do
-    &#x27;STEPS&#x27; : {
-        &#x27;left&#x27; : -100,
-        &#x27;right&#x27; : 100,
-        &#x27;up&#x27; : -85,
-        &#x27;down&#x27; : 85
-    },
-
-    //the various Y coordinates an enemy or an item can pop
-    &#x27;YS_&#x27; : [42, 127, 212, 297],
-
-    //the various X coordinates an enemy or an item can pop
-    &#x27;XS_&#x27; : [1, 101, 201, 301, 401],
-
-    //the last Y coordinate an enemy or an item has poped
-    &#x27;lastYIndex&#x27; : null,
-
-    //the last X coordinate an enemy or an item has poped
-    &#x27;lastXIndex&#x27; : null,
-
-    //the game&#x27;s pushers
-    &#x27;pushers&#x27; : [],
-
-    //the game&#x27;s popers
-    &#x27;popers&#x27; : [],
-
-    //the game&#x27;s gems
-    &#x27;GEMS&#x27; : [&#x27;images/gem-blue.png&#x27;, &#x27;images/gem-orange.png&#x27;, &#x27;images/gem-green.png&#x27;],
-
-    //the last gem generated
-    &#x27;lastGemIndex&#x27; : null,
+    if(typeof game === &#x27;undefined&#x27;){
+        game = null;
+    }
 
     /**
-    * @method startPushers
-    * @brief for each game&#x27;s pusher, launch its pushing operation
+    * The game&#x27;s reference
+    * @property game
+    * @type Object
+    * @default null
     */
-    startPushers : function(){
-        this.pushers.forEach(function(pusher) {
-            pusher.push(pusher);
-        });
-    },
+    this.game = game;
 
     /**
-    * @method startPopers
-    * @brief for each game&#x27;s poper, launch its poping operation
+    * The pusher&#x27;s lock, used in order to control Objects pushing
+    * @property lock
+    * @type Boolean
+    * @default false
     */
-    startPopers : function(){
-        this.popers.forEach(function(poper) {
-            poper.pop(poper);
-        });
+    this.lock = false;
+
+};
+
+/**
+* @method getGame
+* @brief get the game&#x27;s reference of the pusher
+*/ 
+ObjectPusher.prototype.getGame = function(){
+    return this.game;
+};
+
+/**
+* @method getLock
+* @brief release the lock of the pusher
+*/
+ObjectPusher.prototype.releaseLock = function(){
+    this.lock = false;
+};
+
+
+
+/**
+* @method push
+* @brief make an object push into the game
+*/
+ObjectPusher.prototype.push = function(that){
+    if(!that.lock){
+        that.lock = true;
+        setTimeout(function(){
+            that.insertNewRandomObject();
+        }, (Math.random() * that.getMaxTimePush()) + that.getMinTimePush());
     }
 };
 
-//adding new pushers
-gameVars.pushers.push(new EnemyPusher(gameVars));
-gameVars.pushers.push(new ItemPusher(gameVars));
 
-//adding new popers
-gameVars.popers.push(new EnemyPoper(gameVars));
-gameVars.popers.push(new ItemPoper(gameVars));
+/* =====================
+* ENEMYPUSHER PROTOTYPE /
+* ======================
+*/
 
-gameVars.player = new Player(gameVars.initialPosition.x, gameVars.initialPosition.y, &#x27;images/char-boy.png&#x27;);
+/**
+* @class EnemyPusher
+* @constructor
+* @param {Object} game : the game in which the EnemyPusher will make enemies push
+*/
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don&#x27;t need to modify this.
-document.addEventListener(&#x27;keyup&#x27;, function(e) {
-    var allowedKeys = {
-        37: &#x27;left&#x27;,
-        38: &#x27;up&#x27;,
-        39: &#x27;right&#x27;,
-        40: &#x27;down&#x27;
-    };
-    gameVars.player.handleInput(allowedKeys[e.keyCode]);
-});
+var EnemyPusher = function(game){
+    ObjectPusher.call(this, game);
+};
 
+//Inheritance of prototype
+EnemyPusher.prototype = Object.create(ObjectPusher.prototype);
+EnemyPusher.constructor = EnemyPusher;
+
+/**
+* @method insertNewRandomObject
+* @brief insert a new random instance into the correct array of the game
+*/
+EnemyPusher.prototype.insertNewRandomObject = function(){
+    var i;
+    var game = this.getGame();
+    while((i = Math.round((Math.random() * 3) + 0)) === game.lastYIndex);
+    game.lastYIndex = i;
+    game.allEnemies.push(new Enemy(0, game.YS_[i], &#x27;images/enemy-bug.png&#x27;));
+    this.releaseLock();
+};
+
+/**
+* @method getMaxTimePush
+* @brief get the max time it should take to create an enemy
+* @return and {Integer}
+*/
+EnemyPusher.prototype.getMaxTimePush = function(){
+    return 1200;
+};
+
+/**
+* @method getMinTimePush
+* @brief get the min time it should take to create an enemy
+* @return and {Integer}
+*/
+EnemyPusher.prototype.getMinTimePush = function(){
+    return 500;
+};
+
+/* =====================
+* ITEMPUSHER PROTOTYPE /
+* ======================
+*/
+
+/**
+* @class ItemPusher
+* @constructor
+* @param {Object} game : the game in which the ItemPusher will make items push
+*/
+
+var ItemPusher = function(game){
+    ObjectPusher.call(this, game);
+};
+
+//Inheritance of prototype
+ItemPusher.prototype = Object.create(ObjectPusher.prototype);
+ItemPusher.constructor = ItemPusher;
+
+/**
+* @method insertNewRandomObject
+* @brief insert a new random instance into the correct array of the game
+*/
+ItemPusher.prototype.insertNewRandomObject = function(){
+    var i, j, k;
+    //We retrieve the game&#x27;e reference
+    var game = this.getGame();
+
+    //We generate a random index which is different from the previous for both X and Y axis
+    while((i = Math.round((Math.random() * 3) + 0)) === game.lastYIndex 
+            || (j = Math.round((Math.random() * 4) + 0)) === game.lastXIndex );
+    game.lastYIndex = i;
+    game.lastXIndex = j;
+
+    //We do the same concerning the gems types
+    while((k = Math.round((Math.random() * 2) + 0)) === game.lastGemIndex);
+
+    game.lastGemIndex = k;
+
+    //Then we push the new item
+    game.allItems.push(new Item(game.XS_[j], game.YS_[i], game.GEMS[k]));
+
+    //And we release the lock
+    this.releaseLock();
+};
+
+/**
+* @method getMaxTimePush
+* @brief get the max time it should take to create an item
+* @return and {Integer}
+*/
+ItemPusher.prototype.getMaxTimePush = function(){
+    return 5000;
+};
+
+/**
+* @method getMinTimePush
+* @brief get the min time it should take to create an item
+* @return and {Integer}
+*/
+ItemPusher.prototype.getMinTimePush = function(){
+    return 2000;
+};
     </pre>
 </div>
                     </div>
