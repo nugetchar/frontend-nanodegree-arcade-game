@@ -77,21 +77,6 @@ var Engine = (function(global) {
         main();
     }
 
-    /* Global function wich generates an enemy and pushes him into an array 
-    function generateEnemy(game){  
-        
-        if(acceptGeneration){
-            acceptGeneration = false;
-            setTimeout(function(){
-                var i;
-                while((i = Math.round((Math.random() * 3) + 0)) === game.lastYIndex);
-                game.lastYIndex = i;
-                game.allEnemies.push(new Enemy(0, game.YS_[i], 'images/enemy-bug.png'));
-                acceptGeneration = true;
-            }, (Math.random() * 1000) + 500 );
-        }
-    }
-    */
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
