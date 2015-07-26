@@ -13,7 +13,6 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -42,7 +41,7 @@ var Engine = (function(global) {
          */
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
-        
+
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
@@ -111,35 +110,35 @@ var Engine = (function(global) {
      * for the ones which are out of the map then remove them.
      */
 
-     function removeOutEnemies(game){
-        for(var i=0; i<game.allEnemies.length; ++i){
-            if(game.allEnemies[i].out){
+    function removeOutEnemies(game) {
+        for (var i = 0; i < game.allEnemies.length; ++i) {
+            if (game.allEnemies[i].out) {
                 delete game.allEnemies[i];
                 game.allEnemies.splice(i, 1);
             }
         }
-     }
+    }
 
-     function samePlace(player, mapItem){
+    function samePlace(player, mapItem) {
 
         return ((mapItem.x >= player.area.minx && mapItem.x <= player.area.maxx) && (mapItem.y >= player.area.miny && mapItem.y <= player.area.maxy));
-     }
+    }
 
-     function checkCollisions(game){
-        game.allEnemies.forEach(function(enemy){
-            if(samePlace(game.player, enemy)){
+    function checkCollisions(game) {
+        game.allEnemies.forEach(function(enemy) {
+            if (samePlace(game.player, enemy)) {
                 game.player.dies();
             }
         });
-        
-        game.allItems.forEach(function(item){
-            if(samePlace(game.player, item)){
+
+        game.allItems.forEach(function(item) {
+            if (samePlace(game.player, item)) {
                 game.player.earnPoints(item.getValue());
                 item.collected = true;
             }
         });
-        
-     }
+
+    }
 
 
     /* This function initially draws the "game level", it will then call
@@ -156,12 +155,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -191,8 +190,8 @@ var Engine = (function(global) {
         ctx.fillStyle = '#FFFFFF';
         ctx.strokeStyle = '#000000';
 
-        ctx.fillText(game.player.score, canvas.width/2, 40);
-        ctx.strokeText(game.player.score, canvas.width/2, 40);
+        ctx.fillText(game.player.score, canvas.width / 2, 40);
+        ctx.strokeText(game.player.score, canvas.width / 2, 40);
 
         renderEntities(game);
     }
@@ -206,13 +205,13 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         game.allEnemies.forEach(function(enemy) {
-            if(!enemy.isOut()){
+            if (!enemy.isOut()) {
                 enemy.render();
             }
         });
 
         game.allItems.forEach(function(item) {
-            if(!item.isCollected()){
+            if (!item.isCollected()) {
                 item.render();
             }
         });
