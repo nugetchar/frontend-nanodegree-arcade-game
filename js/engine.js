@@ -18,11 +18,11 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
+    'use strict';
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        acceptGeneration = true, //I added this in order to manage the enemies poping system
         lastTime;
 
     canvas.width = 505;

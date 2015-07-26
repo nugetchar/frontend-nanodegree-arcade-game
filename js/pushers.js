@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /* ======================
  * OBJECTPUSHER PROTOTYPE /
  * =======================
@@ -94,7 +94,7 @@ EnemyPusher.prototype.insertNewRandomObject = function() {
     var game = this.getGame();
     while ((i = Math.round((Math.random() * 3) + 0)) === game.lastYIndex);
     game.lastYIndex = i;
-    game.allEnemies.push(new Enemy(0, game.YS_[i], 'images/enemy-bug.png'));
+    game.allEnemies.push(new Enemy(0, game.YS[i], 'images/enemy-bug.png'));
     this.releaseLock();
 };
 
@@ -155,7 +155,7 @@ ItemPusher.prototype.insertNewRandomObject = function() {
     game.lastGemIndex = k;
 
     //Then we push the new item
-    game.allItems.push(new Item(game.XS_[j], game.YS_[i], game.GEMS[k]));
+    game.allItems.push(new Item(game.XS[j], game.YS[i], game.GEMS[k]));
 
     //And we release the lock
     this.releaseLock();
